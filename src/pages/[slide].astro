@@ -1,0 +1,17 @@
+---
+import Base from "@/layouts/Base.astro";
+import Presentation from "@/components/Presentation.astro";
+import { presentationSlides } from "@/data/presentation";
+
+export function getStaticPaths() {
+	return presentationSlides.map((_, i) => ({
+		params: { slide: String(i + 1) },
+	}));
+}
+
+const slide = Number(Astro.params.slide);
+---
+
+<Base bodyClass="presentation-page">
+	<Presentation initialSlide={slide} />
+</Base>

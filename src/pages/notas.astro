@@ -1,0 +1,158 @@
+---
+import Base from "@/layouts/Base.astro";
+import {
+	presentationSlides,
+	integrantes,
+	REPO_URL,
+} from "@/data/presentation";
+
+const totalSeconds = presentationSlides.reduce((a, s) => a + s.note.seconds, 0);
+
+function fmt(seconds: number) {
+	const m = Math.floor(seconds / 60);
+	const s = seconds % 60;
+	return m > 0 ? `${m} min ${s ? `${s} s` : ""}`.trim() : `${s} s`;
+}
+
+const perPersona = integrantes.map((name, i) => {
+	const persona = i + 1;
+	const slides = presentationSlides
+		.map((s, idx) => ({ s, n: idx + 1 }))
+		.filter((x) => x.s.note.persona === persona);
+	const seconds = slides.reduce((a, x) => a + x.s.note.seconds, 0);
+	return { persona, name, slides: slides.map((x) => x.n), seconds };
+});
+---
+
+<Base title="Notas del orador · SIG Campo Díaz">
+	<main class="notes">
+		<header class="notes-head">
+			<a class="back" href="/">
+				<span aria-hidden="true">←</span> Volver a la presentación
+			</a>
+			<p class="kicker">Notas del orador</p>
+			<h1>Aplicación de SIG para la Agricultura de Precisión en Campo Díaz</h1>
+			<p class="sub">
+				Guion de alto nivel: qué mencionar en cada diapositiva. Tiempo total
+				estimado <strong>{fmt(totalSeconds)}</strong> · {presentationSlides.length} diapositivas · {integrantes.length} integrantes.
+			</p>
+		</header>
+
+		<section class="people">
+			{
+				perPersona.map((p) => (
+					<div class="person">
+						<span class="person-no">{p.persona}</span>
+						<div>
+							<h3>{p.name}</h3>
+							<p>
+								Diapositivas {p.slides.join(", ")} · ~{fmt(p.seconds)}
+							</p>
+						</div>
+					</div>
+				))
+			}
+		</section>
+
+		<ol class="slides">
+			{
+				presentationSlides.map((slide, i) => {
+					const n = i + 1;
+					const name = integrantes[slide.note.persona - 1];
+					return (
+						<li class="note">
+							<div class="note-meta">
+								<span class="note-n">{String(n).padStart(2, "0")}</span>
+								<span class="note-persona">
+									Persona {slide.note.persona} — {name}
+								</span>
+								<span class="note-time">~{fmt(slide.note.seconds)}</span>
+								<a class="note-link" href={n === 1 ? "/" : `/${n}`}>
+									Ir a la diapositiva ↗
+								</a>
+							</div>
+							<p class="note-eyebrow">{slide.eyebrow}</p>
+							<h2>{slide.title}</h2>
+							<ul>
+								{slide.note.points.map((pt) => (
+									<li>{pt}</li>
+								))}
+							</ul>
+						</li>
+					);
+				})
+			}
+		</ol>
+
+		<footer class="notes-foot">
+			<a href={REPO_URL} target="_blank" rel="noreferrer">Repositorio del proyecto ↗</a>
+		</footer>
+	</main>
+</Base>
+
+<style>
+	.notes {
+		max-width: 60rem;
+		margin: 0 auto;
+		padding: clamp(1.5rem, 5vw, 3.5rem) clamp(1rem, 5vw, 2rem) 5rem;
+		color: #20301a;
+	}
+	.back {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4rem;
+		text-decoration: none;
+		font-weight: 600;
+		font-size: 0.9rem;
+		color: #527a22;
+	}
+	.back:hover { text-decoration: underline; }
+	.notes-head { border-bottom: 1px solid #d7e3c4; padding-bottom: 2rem; margin-bottom: 2rem; }
+	.kicker {
+		margin: 1.4rem 0 0.6rem;
+		font-size: 0.8rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+		color: #6a9a2e;
+	}
+	.notes-head h1 { margin: 0 0 0.8rem; font-size: clamp(1.6rem, 4vw, 2.4rem); line-height: 1.1; letter-spacing: -0.02em; }
+	.sub { margin: 0; color: #5c6b4f; font-size: 1.05rem; line-height: 1.5; max-width: 48rem; }
+	.sub strong { color: #3f5d1d; }
+
+	.people {
+		display: grid; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+		gap: 0.8rem; margin-bottom: 2.6rem;
+	}
+	.person {
+		display: flex; gap: 0.8rem; align-items: center;
+		background: #f4f8ee; border: 1px solid #e6f0d4; border-radius: 0.9rem; padding: 0.9rem 1rem;
+	}
+	.person-no {
+		flex: none; display: grid; place-items: center;
+		width: 2rem; height: 2rem; border-radius: 999px;
+		background: #527a22; color: #fff; font-weight: 800; font-size: 0.9rem;
+	}
+	.person h3 { margin: 0 0 0.15rem; font-size: 1rem; }
+	.person p { margin: 0; font-size: 0.82rem; color: #5c6b4f; }
+
+	.slides { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 1.2rem; }
+	.note {
+		background: #fff; border: 1px solid #e0ead0; border-left: 4px solid #6a9a2e;
+		border-radius: 0.9rem; padding: 1.3rem 1.5rem;
+	}
+	.note-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.8rem; margin-bottom: 0.6rem; }
+	.note-n { font-weight: 800; color: #6a9a2e; font-size: 0.95rem; }
+	.note-persona { font-weight: 700; font-size: 0.85rem; color: #3f5d1d; }
+	.note-time {
+		font-size: 0.78rem; font-weight: 600; color: #527a22;
+		background: #eaf3cf; border-radius: 999px; padding: 0.15rem 0.6rem;
+	}
+	.note-link { margin-left: auto; font-size: 0.82rem; font-weight: 600; color: #527a22; text-decoration: none; }
+	.note-link:hover { text-decoration: underline; }
+	.note-eyebrow { margin: 0; font-size: 0.74rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #86b343; }
+	.note h2 { margin: 0.2rem 0 0.7rem; font-size: 1.15rem; line-height: 1.25; letter-spacing: -0.01em; }
+	.note ul { margin: 0; padding-left: 1.1rem; display: flex; flex-direction: column; gap: 0.35rem; }
+	.note li { font-size: 0.95rem; line-height: 1.45; color: #44503a; }
+
+	.notes-foot { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid #d7e3c4; }
+	.notes-foot a { color: #527a22; font-weight: 600; text-decoration: none; }
+	.notes-foot a:hover { text-decoration: underline; }
+</style>
