@@ -14,13 +14,13 @@ function fmt(seconds: number) {
 	return m > 0 ? `${m} min ${s ? `${s} s` : ""}`.trim() : `${s} s`;
 }
 
-const perPersona = integrantes.map((name, i) => {
+const perPersona = integrantes.map((_, i) => {
 	const persona = i + 1;
 	const slides = presentationSlides
 		.map((s, idx) => ({ s, n: idx + 1 }))
 		.filter((x) => x.s.note.persona === persona);
 	const seconds = slides.reduce((a, x) => a + x.s.note.seconds, 0);
-	return { persona, name, slides: slides.map((x) => x.n), seconds };
+	return { persona, name: `Integrante #${persona}`, slides: slides.map((x) => x.n), seconds };
 });
 ---
 
@@ -58,13 +58,13 @@ const perPersona = integrantes.map((name, i) => {
 			{
 				presentationSlides.map((slide, i) => {
 					const n = i + 1;
-					const name = integrantes[slide.note.persona - 1];
+					const personaLabel = `Integrante #${slide.note.persona}`;
 					return (
 						<li class="note">
 							<div class="note-meta">
 								<span class="note-n">{String(n).padStart(2, "0")}</span>
 								<span class="note-persona">
-									Persona {slide.note.persona} — {name}
+									{personaLabel}
 								</span>
 								<span class="note-time">~{fmt(slide.note.seconds)}</span>
 								<a class="note-link" href={n === 1 ? "/" : `/${n}`}>

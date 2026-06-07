@@ -79,7 +79,7 @@ export interface Slide {
 	team?: string[];
 	image?: SlideImage;
 	cards?: SlideCard[];
-	flow?: string[];
+	flow?: { label: string; icon: PresentationIcon }[];
 	formula?: {
 		expr: string;
 		legend: { sym: string; meaning: string }[];
@@ -165,6 +165,10 @@ export const presentationSlides: Slide[] = [
 		lead: "El manejo uniforme ignora las diferencias internas del lote. Identificar ambientes productivos permite tomar mejores decisiones.",
 		variant: "cards",
 		tone: "green",
+		image: {
+			src: "/img/gis/field-001.jpg",
+			alt: "Campo agrícola visto desde adentro del cultivo.",
+		},
 		cards: [
 			{
 				title: "Manejo uniforme",
@@ -200,6 +204,10 @@ export const presentationSlides: Slide[] = [
 		lead: "El trabajo combina imágenes satelitales, capas vectoriales del lote y software SIG libre.",
 		variant: "cards",
 		tone: "sky",
+		image: {
+			src: "/img/gis/sat-wide.jpg",
+			alt: "Imagen satelital de gran angular.",
+		},
 		cards: [
 			{
 				title: "Sentinel-2",
@@ -238,12 +246,16 @@ export const presentationSlides: Slide[] = [
 		lead: "Desde la imagen satelital cruda hasta las zonas de manejo del lote.",
 		variant: "flow",
 		tone: "green",
+		image: {
+			src: "/img/gis/field-000.jpg",
+			alt: "Vista del lote agrícola.",
+		},
 		flow: [
-			"Imagen Sentinel-2",
-			"Recorte del lote",
-			"Cálculo del NDVI",
-			"Clasificación por ambientes",
-			"Zonas de manejo",
+			{ label: "Imagen Sentinel-2", icon: "satellite" },
+			{ label: "Recorte del lote", icon: "scissors" },
+			{ label: "Cálculo del NDVI", icon: "gear" },
+			{ label: "Clasificación por ambientes", icon: "layers" },
+			{ label: "Zonas de manejo", icon: "map" },
 		],
 		note: {
 			persona: 2,
@@ -477,6 +489,10 @@ export const presentationSlides: Slide[] = [
 		lead: "Con el lote dividido en ambientes, las decisiones se vuelven específicas para cada zona.",
 		variant: "cards",
 		tone: "lime",
+		image: {
+			src: "/img/gis/field-001.jpg",
+			alt: "Aplicación de insumos en el campo.",
+		},
 		cards: [
 			{
 				title: "Fertilización diferenciada",
@@ -513,8 +529,13 @@ export const presentationSlides: Slide[] = [
 	{
 		eyebrow: "Conclusiones",
 		title: "Qué logramos con el SIG",
+		lead: "Del análisis espacial a decisiones concretas que mejoran la eficiencia productiva.",
 		variant: "cards",
 		tone: "green",
+		image: {
+			src: "/img/gis/zones.png",
+			alt: "Mapa final del lote con los ambientes de manejo delineados.",
+		},
 		cards: [
 			{
 				title: "Variabilidad identificada",

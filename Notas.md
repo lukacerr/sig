@@ -6,12 +6,12 @@ Notas de alto nivel: conceptos a mencionar en cada diapositiva (no es el texto e
 Tiempo total estimado: ~9 min 0 s · 14 diapositivas · 6 integrantes.
 
 Integrantes (persona N):
-1. Cerrutti Luka
-2. Parrondo Bastos Felipe
-3. Pascual Lucas Mauricio
-4. Tisch Facundo Erwin
-5. Varela Angeles
-6. Williams Agustín
+1. Integrante #1
+2. Integrante #2
+3. Integrante #3
+4. Integrante #4
+5. Integrante #5
+6. Integrante #6
 
 ---
 

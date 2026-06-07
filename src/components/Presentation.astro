@@ -77,6 +77,9 @@ function icon(name: PresentationIcon) {
 							{slide.image && (slide.variant === "cover" || slide.variant === "thanks") && (
 								<img class="slide-bg" src={slide.image.src} alt="" aria-hidden="true" />
 							)}
+							{slide.image && slide.variant === "flow" && (
+								<img class="slide-bg-muted" src={slide.image.src} alt="" aria-hidden="true" />
+							)}
 
 							<div class="slide-inner">
 								{slide.variant !== "cover" && slide.variant !== "thanks" && (
@@ -133,19 +136,27 @@ function icon(name: PresentationIcon) {
 									</div>
 								)}
 
-								{/* CARDS grid */}
+								{/* CARDS — image panel + stacked cards */}
 								{slide.variant === "cards" && slide.cards && (
-									<div class:list={["card-grid", `count-${slide.cards.length}`]}>
-										{slide.cards.map((card) => (
-											<div class="card reveal">
-												{card.tag && <span class="card-tag">{card.tag}</span>}
-												<span class="card-icon" set:html={icon(card.icon)} />
-												<div>
-													<h2>{card.title}</h2>
-													<p>{card.description}</p>
+									<div class:list={["cards-body", { "no-image": !slide.image }]}>
+										{slide.image && (
+											<figure class="panel cards-panel reveal">
+												<img src={slide.image.src} alt={slide.image.alt} loading="lazy" />
+												{slide.image.caption && <figcaption>{slide.image.caption}</figcaption>}
+											</figure>
+										)}
+										<div class:list={["card-grid", `count-${slide.cards.length}`]}>
+											{slide.cards.map((card) => (
+												<div class="card reveal">
+													{card.tag && <span class="card-tag">{card.tag}</span>}
+													<span class="card-icon" set:html={icon(card.icon)} />
+													<div>
+														<h2>{card.title}</h2>
+														<p>{card.description}</p>
+													</div>
 												</div>
-											</div>
-										))}
+											))}
+										</div>
 									</div>
 								)}
 
@@ -154,8 +165,9 @@ function icon(name: PresentationIcon) {
 									<ol class="flow">
 										{slide.flow.map((step, si) => (
 											<li class="flow-node reveal">
-												<span class="flow-num">{si + 1}</span>
-												<span class="flow-label">{step}</span>
+												<span class="flow-step">{si + 1}</span>
+												<span class="flow-icon" set:html={icon(step.icon)} />
+												<span class="flow-label">{step.label}</span>
 											</li>
 										))}
 									</ol>
@@ -425,7 +437,7 @@ function icon(name: PresentationIcon) {
 		flex: 1;
 		display: flex;
 		flex-direction: column;
-		padding: 8.5cqh 7cqw 6cqh;
+		padding: 8.5cqh 7cqw 9cqh;
 		gap: 3cqh;
 	}
 
@@ -483,10 +495,16 @@ function icon(name: PresentationIcon) {
 		padding: 0.5cqh 1.2cqh; border-radius: 999px;
 	}
 
-	.card-grid { display: grid; gap: 2.6cqh; align-content: start; }
-	.card-grid.count-2 { grid-template-columns: repeat(2, 1fr); }
-	.card-grid.count-3 { grid-template-columns: repeat(3, 1fr); }
-	.card-grid.count-4 { grid-template-columns: repeat(2, 1fr); }
+	/* cards = head on top; image panel (left) + stacked cards (right) */
+	.cards-body {
+		flex: 1; min-height: 0;
+		display: grid; grid-template-columns: 0.82fr 1fr; gap: 4cqw;
+		align-items: stretch;
+	}
+	.cards-body.no-image { grid-template-columns: 1fr; }
+	.card-grid { display: grid; gap: 2.4cqh; align-content: center; min-height: 0; }
+	.card-grid.count-2, .card-grid.count-3 { grid-template-columns: 1fr; }
+	.card-grid.count-4 { grid-template-columns: 1fr 1fr; }
 
 	/* ---- split ---- */
 	.split { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 4cqw; align-items: center; min-height: 0; }
@@ -504,6 +522,9 @@ function icon(name: PresentationIcon) {
 		font-size: 1.7cqh; color: var(--muted); padding: 1.6cqh 2cqh;
 		border-top: 1px solid var(--line); background: var(--g-50);
 	}
+	/* cards image panel fills its column height */
+	.cards-panel { max-height: none; height: 100%; }
+	.cards-panel img { max-height: none; height: 100%; flex: 1; min-height: 0; }
 
 	/* ---- flow ---- */
 	.flow {
@@ -511,10 +532,10 @@ function icon(name: PresentationIcon) {
 		display: flex; align-items: center; justify-content: center; gap: 1.4cqw;
 	}
 	.flow-node {
-		flex: 1; max-width: 17cqw;
-		display: flex; flex-direction: column; align-items: center; gap: 1.6cqh; text-align: center;
-		background: #fff; border: 1px solid var(--line); border-radius: 2cqh;
-		padding: 3cqh 1.6cqh;
+		flex: 1; max-width: 18cqw;
+		display: flex; flex-direction: column; align-items: center; gap: 2.4cqh; text-align: center;
+		background: #fff; border: 1px solid var(--line); border-radius: 2.4cqh;
+		padding: 5.5cqh 2cqh 4.5cqh;
 		box-shadow: 0 1.4cqh 3cqh -1.8cqh rgba(40, 60, 20, 0.3);
 		position: relative;
 	}
@@ -522,15 +543,25 @@ function icon(name: PresentationIcon) {
 		content: "→"; position: absolute; right: -1.45cqw; top: 50%; transform: translateY(-50%);
 		color: var(--accent); font-size: 3cqh; font-weight: 700;
 	}
-	.flow-num {
+	.flow-step {
+		position: absolute; top: 2.2cqh; left: 2.2cqh;
 		display: grid; place-items: center;
-		width: 5.4cqh; height: 5.4cqh; border-radius: 999px;
-		background: var(--accent); color: #fff; font-weight: 800; font-size: 2.4cqh;
+		width: 4.4cqh; height: 4.4cqh; border-radius: 999px;
+		background: var(--accent-soft); color: var(--accent-ink);
+		font-weight: 800; font-size: 2.1cqh;
 	}
-	.flow-label { font-size: 2cqh; font-weight: 600; line-height: 1.25; color: var(--ink); }
+	.flow-icon {
+		display: grid; place-items: center;
+		width: 10cqh; height: 10cqh; border-radius: 999px;
+		background: var(--accent); color: #fff;
+	}
+	.flow-icon :global(svg) { width: 5.2cqh; height: 5.2cqh; }
+	.flow-label { font-size: 2.2cqh; font-weight: 700; line-height: 1.25; color: var(--ink); }
 
 	/* ---- formula ---- */
 	.formula-wrap { flex: 1; display: grid; grid-template-columns: 1.1fr 1fr; gap: 4cqw; align-items: center; min-height: 0; }
+	.formula-wrap .panel { align-self: center; justify-self: center; width: fit-content; max-width: 100%; max-height: 100%; }
+	.formula-wrap .panel img { width: auto; max-width: 100%; height: 46cqh; max-height: 46cqh; object-fit: contain; }
 	.formula-side { display: flex; flex-direction: column; gap: 3cqh; }
 	.formula-box {
 		font-size: 4.4cqh; font-weight: 800; letter-spacing: -0.01em;
@@ -562,6 +593,16 @@ function icon(name: PresentationIcon) {
 
 	/* ---- cover & thanks ---- */
 	.slide-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+	.slide-bg-muted {
+		position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;
+		opacity: 0.32;
+	}
+	/* flow keeps a subtle full-bleed photo; content sits above image + scrim */
+	.variant-flow .slide-inner { z-index: 1; }
+	.variant-flow::after {
+		content: ""; position: absolute; inset: 0; z-index: 0;
+		background: linear-gradient(180deg, rgba(246, 249, 240, 0.9) 0%, rgba(246, 249, 240, 0.78) 45%, rgba(246, 249, 240, 0.5) 100%);
+	}
 	.variant-cover, .variant-thanks { color: #f4f8ec; }
 	.variant-cover .slide-inner, .variant-thanks .slide-inner { z-index: 1; justify-content: center; }
 	.variant-cover::after, .variant-thanks::after {
@@ -636,8 +677,10 @@ function icon(name: PresentationIcon) {
 	}
 
 	@media (max-width: 640px) {
-		.split, .formula-wrap { grid-template-columns: 1fr; gap: 2.4cqh; }
+		.split, .formula-wrap, .cards-body { grid-template-columns: 1fr; gap: 2.4cqh; }
 		.card-grid.count-3, .card-grid.count-4, .env-grid { grid-template-columns: 1fr 1fr; }
+		.cards-panel { height: auto; }
+		.cards-panel img { max-height: 30cqh; }
 		.flow { flex-direction: column; }
 		.flow-node { max-width: none; width: 100%; flex-direction: row; justify-content: flex-start; gap: 2.4cqw; }
 		.flow-node:not(:last-child)::after { content: "↓"; right: auto; left: 50%; top: auto; bottom: -1.4cqh; transform: translateX(-50%); }
