@@ -1,0 +1,2022 @@
+export type PresentationIcon =
+	| 'spark'
+	| 'users'
+	| 'shirt'
+	| 'drop'
+	| 'filter'
+	| 'sensor'
+	| 'phone'
+	| 'qr'
+	| 'gift'
+	| 'map'
+	| 'chart'
+	| 'history'
+	| 'material'
+	| 'building'
+	| 'shield'
+	| 'web'
+	| 'file';
+
+export type PresentationVisual =
+	| {
+			type: 'photo';
+			src: string;
+			alt: string;
+			caption?: string;
+	  }
+	| { type: 'device' }
+	| { type: 'flow' }
+	| { type: 'phone' }
+	| { type: 'scale' }
+	| { type: 'impact' }
+	| { type: 'risk' }
+	| { type: 'demo' }
+	| { type: 'thanks' };
+
+export interface PresentationCard {
+	title: string;
+	description: string;
+	icon: PresentationIcon;
+}
+
+export interface PresentationLink {
+	label: string;
+	href: string;
+	external?: boolean;
+}
+
+export interface PresentationSlide {
+	eyebrow: string;
+	title: string;
+	lead?: string;
+	variant: 'cover' | 'split' | 'cards' | 'metric' | 'links' | 'thanks';
+	tone?: 'blue' | 'orange' | 'mint' | 'dark';
+	animation: 'rise' | 'slide-left' | 'zoom-soft' | 'wipe' | 'cascade';
+	cards?: PresentationCard[];
+	visual?: PresentationVisual;
+	stat?: {
+		value: string;
+		label: string;
+	};
+	links?: PresentationLink[];
+}
+
+export const presentationSlides: PresentationSlide[] = [
+	{
+		eyebrow: 'FiberLoop',
+		title: 'Capturar la contaminación invisible',
+		lead: 'Un prototipo conceptual para reducir microfibras textiles antes de que lleguen al agua o al aire.',
+		variant: 'cover',
+		tone: 'blue',
+		animation: 'zoom-soft',
+		stat: {
+			value: 'TP Integrador',
+			label: 'Tecnología y Medio Ambiente · Grupo 6',
+		},
+		visual: { type: 'device' },
+	},
+	{
+		eyebrow: 'Integrantes',
+		title: 'Grupo 6',
+		lead: 'Equipo de trabajo para el mock y la presentación de FiberLoop.',
+		variant: 'cards',
+		tone: 'blue',
+		animation: 'cascade',
+		cards: [
+			{
+				title: 'Jonathan Emanuel Artimiak',
+				description: 'Integrante',
+				icon: 'users',
+			},
+			{ title: 'Luka Cerrutti', description: 'Integrante', icon: 'users' },
+			{ title: 'Felipe Costa', description: 'Integrante', icon: 'users' },
+			{
+				title: 'Santiago Nicolás Iglesias',
+				description: 'Integrante',
+				icon: 'users',
+			},
+			{
+				title: 'Eliel Hernando Lanzillotta',
+				description: 'Integrante',
+				icon: 'users',
+			},
+			{
+				title: 'Carlos Timoteo Lombardo',
+				description: 'Integrante',
+				icon: 'users',
+			},
+		],
+	},
+	{
+		eyebrow: 'Problema',
+		title: 'Cada lavado de ropa sintética libera microfibras plásticas',
+		lead: 'Una acción doméstica repetida puede transportar partículas invisibles hacia agua, aire y sistemas de tratamiento.',
+		variant: 'split',
+		tone: 'blue',
+		animation: 'slide-left',
+		visual: {
+			type: 'photo',
+			src: '/presentation/microplastics-beach.jpg',
+			alt: 'Arena con pequeños restos de microplásticos en la costa.',
+			caption: 'Foto: Anastasiia Nelen / Unsplash',
+		},
+		cards: [
+			{
+				title: 'Textiles sintéticos',
+				description: 'Poliéster, nylon, acrílico y elastano.',
+				icon: 'shirt',
+			},
+			{
+				title: 'Origen cotidiano',
+				description: 'Lavado, secado y lavasecarropas compatibles.',
+				icon: 'drop',
+			},
+		],
+	},
+	{
+		eyebrow: 'Escala',
+		title: 'Lo invisible también se acumula',
+		lead: 'El impacto individual parece pequeño, pero se repite en hogares, edificios, lavaderos e instituciones.',
+		variant: 'metric',
+		tone: 'mint',
+		animation: 'wipe',
+		stat: {
+			value: 'millones',
+			label:
+				'de ciclos de lavado y secado pueden sumar una fuga constante de fibras invisibles',
+		},
+		visual: { type: 'scale' },
+		cards: [
+			{
+				title: 'Cotidiano',
+				description: 'Sale de una acción doméstica repetida.',
+				icon: 'shirt',
+			},
+			{
+				title: 'Difícil de retener',
+				description: 'Puede atravesar sistemas de tratamiento.',
+				icon: 'drop',
+			},
+			{
+				title: 'Escalable',
+				description: 'Crece en lavaderos, hoteles e instituciones.',
+				icon: 'chart',
+			},
+		],
+	},
+	{
+		eyebrow: 'Solución',
+		title: 'FiberLoop actúa en el origen',
+		lead: 'Un cartucho filtrante conectado al flujo de lavado o secado captura microfibras antes de que se dispersen.',
+		variant: 'split',
+		tone: 'orange',
+		animation: 'zoom-soft',
+		visual: { type: 'device' },
+		cards: [
+			{
+				title: 'Antes del desagüe',
+				description: 'Filtración física cerca del lavarropas.',
+				icon: 'filter',
+			},
+			{
+				title: 'Antes del ambiente',
+				description: 'Registro, recolección y trazabilidad del cartucho.',
+				icon: 'qr',
+			},
+		],
+	},
+	{
+		eyebrow: 'Funcionamiento',
+		title: 'Filtro, sensores, app y recolección',
+		lead: 'La propuesta combina una pieza física simple con registro digital para cerrar el ciclo del cartucho.',
+		variant: 'cards',
+		tone: 'blue',
+		animation: 'cascade',
+		visual: { type: 'flow' },
+		cards: [
+			{
+				title: '1. Filtra',
+				description: 'El flujo compatible pasa por el cartucho.',
+				icon: 'filter',
+			},
+			{
+				title: '2. Mide',
+				description: 'Sensores controlan flujo, saturación y obstrucción.',
+				icon: 'sensor',
+			},
+			{
+				title: '3. Avisa',
+				description: 'La app alerta mantenimiento o recambio.',
+				icon: 'phone',
+			},
+			{
+				title: '4. Cierra el ciclo',
+				description: 'QR y entrega en puntos de recolección.',
+				icon: 'qr',
+			},
+		],
+	},
+	{
+		eyebrow: 'App',
+		title: 'La app vuelve visible el impacto',
+		lead: 'Convierte saturación, historial y entrega de cartuchos en acciones claras para el usuario.',
+		variant: 'split',
+		tone: 'blue',
+		animation: 'slide-left',
+		visual: { type: 'phone' },
+		cards: [
+			{
+				title: 'Estado del filtro',
+				description: 'Saturación, flujo y alertas.',
+				icon: 'sensor',
+			},
+			{
+				title: 'Historial',
+				description: 'Lavados, recambios y gramos estimados.',
+				icon: 'history',
+			},
+			{
+				title: 'QR del cartucho',
+				description: 'Registro de entrega en puntos de recolección.',
+				icon: 'qr',
+			},
+			{
+				title: 'Recompensas',
+				description: 'Beneficios por participación municipal.',
+				icon: 'gift',
+			},
+		],
+	},
+	{
+		eyebrow: 'Incentivos',
+		title: 'Capturar, entregar, recibir beneficios',
+		lead: 'El cartucho lleno se registra por QR y se entrega en puntos de recolección para sostener el hábito.',
+		variant: 'split',
+		tone: 'orange',
+		animation: 'wipe',
+		visual: {
+			type: 'photo',
+			src: '/presentation/recycling-bins.jpg',
+			alt: 'Contenedores de reciclaje en un espacio urbano.',
+			caption: 'Foto: Kristaps Grundsteins / Unsplash',
+		},
+		cards: [
+			{
+				title: 'Puntos verdes',
+				description: 'Municipios, escuelas y comercios adheridos.',
+				icon: 'map',
+			},
+			{
+				title: 'Recompensas',
+				description: 'Descuentos, beneficios o reconocimientos locales.',
+				icon: 'gift',
+			},
+		],
+	},
+	{
+		eyebrow: 'Impacto medible',
+		title: 'Medir antes de escalar',
+		lead: 'El objetivo no es prometer resultados absolutos, sino medir si la captura en origen reduce la fuga.',
+		variant: 'metric',
+		tone: 'mint',
+		animation: 'zoom-soft',
+		stat: {
+			value: '25%',
+			label:
+				'meta inicial de reducción en hogares o instituciones adheridas durante el primer año',
+		},
+		visual: { type: 'impact' },
+		cards: [
+			{
+				title: 'Cartuchos',
+				description: 'Cantidad recolectada por mes y zona.',
+				icon: 'filter',
+			},
+			{
+				title: 'Material',
+				description: 'Gramos estimados recuperados.',
+				icon: 'material',
+			},
+			{
+				title: 'Política pública',
+				description: 'Datos agregados para evaluar programas.',
+				icon: 'shield',
+			},
+		],
+	},
+	{
+		eyebrow: 'Riesgos',
+		title: 'No trasladar el problema',
+		lead: 'FiberLoop debe pensarse como prototipo responsable: útil, medible y con límites claros.',
+		variant: 'cards',
+		tone: 'dark',
+		animation: 'cascade',
+		visual: { type: 'risk' },
+		cards: [
+			{
+				title: 'E-waste',
+				description: 'Diseño durable, reparable y con cartuchos recuperables.',
+				icon: 'shield',
+			},
+			{
+				title: 'Privacidad',
+				description: 'Datos agregados y anonimizados.',
+				icon: 'sensor',
+			},
+			{
+				title: 'Acceso',
+				description: 'Programas municipales, subsidios y puntos cercanos.',
+				icon: 'map',
+			},
+		],
+	},
+	{
+		eyebrow: 'Inversión',
+		title: 'Costo e inversión',
+		lead: 'La propuesta requiere inversión inicial, pero puede sostenerse con alianzas e incentivos que cierren el ciclo de recolección.',
+		variant: 'cards',
+		tone: 'orange',
+		animation: 'cascade',
+		visual: { type: 'flow' },
+		cards: [
+			{
+				title: 'Estructura de costos',
+				description:
+					'Hardware, sensores, filtros, conectividad, software y mantenimiento.',
+				icon: 'sensor',
+			},
+			{
+				title: 'Viabilidad económica',
+				description:
+					'Acuerdos público-privados con municipios, fabricantes e incentivos públicos.',
+				icon: 'building',
+			},
+			{
+				title: 'Sistema de incentivos',
+				description:
+					'Beneficios, descuentos o subsidios por entregar cartuchos recuperados.',
+				icon: 'gift',
+			},
+		],
+	},
+	{
+		eyebrow: 'Viabilidad',
+		title: 'Viable como implementación gradual',
+		lead: 'Las tecnologías ya existen; el desafío es validar captura, mantenimiento, costos y adopción antes de escalar.',
+		variant: 'cards',
+		tone: 'blue',
+		animation: 'cascade',
+		visual: { type: 'flow' },
+		cards: [
+			{
+				title: 'Tecnologías disponibles',
+				description:
+					'Sensores, microcontroladores, filtrado, Bluetooth/WiFi y app.',
+				icon: 'sensor',
+			},
+			{
+				title: 'Primera etapa',
+				description:
+					'Dispositivo adaptable para hogares, edificios o instituciones.',
+				icon: 'filter',
+			},
+			{
+				title: 'Alianzas',
+				description:
+					'Municipios, fabricantes, lavaderos y tintorerías para pruebas locales.',
+				icon: 'building',
+			},
+			{
+				title: 'Escala futura',
+				description: 'Industria textil con más estudios técnicos y económicos.',
+				icon: 'chart',
+			},
+		],
+	},
+	{
+		eyebrow: 'Demo',
+		title: 'Del concepto al mock interactivo',
+		lead: 'La presentación continúa mostrando dos piezas estáticas: la app móvil para usuarios y la web promocional del proyecto.',
+		variant: 'split',
+		tone: 'mint',
+		animation: 'slide-left',
+		visual: { type: 'demo' },
+		links: [
+			{
+				label: 'Abrir app móvil',
+				href: '/mobile',
+			},
+			{
+				label: 'Abrir web',
+				href: '/web',
+			},
+		],
+		cards: [
+			{
+				title: 'App',
+				description:
+					'Estado del filtro, QR, historial, recompensas y puntos de entrega.',
+				icon: 'phone',
+			},
+			{
+				title: 'Web',
+				description:
+					'Contexto del problema, solución, casos de uso e impacto estimado.',
+				icon: 'web',
+			},
+		],
+	},
+	{
+		eyebrow: 'Muchas gracias',
+		title: '¿Preguntas?',
+		lead: 'FiberLoop es un mock estático para comunicar una intervención posible: capturar en el origen, medir y sostener el hábito.',
+		variant: 'thanks',
+		tone: 'blue',
+		animation: 'zoom-soft',
+		visual: { type: 'thanks' },
+		links: [
+			{
+				label: 'Ver documento del proyecto',
+				href: 'https://github.com/lukacerr/fiberloop/blob/main/Document.pdf',
+				external: true,
+			},
+		],
+		stat: {
+			value: 'Origen + datos + hábito',
+			label: 'la oportunidad está en intervenir antes de la dispersión',
+		},
+	},
+];
+
+
+---
+import {
+	type PresentationIcon,
+	type PresentationVisual,
+	presentationSlides,
+} from "@/data/presentation";
+
+interface Props {
+	initialSlide?: number;
+}
+
+const { initialSlide = 1 } = Astro.props;
+const safeInitialSlide = Math.min(
+	Math.max(Number(initialSlide) || 1, 1),
+	presentationSlides.length,
+);
+
+const iconPaths: Record<PresentationIcon, string> = {
+	spark:
+		"M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3z M5 17l1 2l2 1l-2 1l-1 2l-1-2l-2-1l2-1l1-2z M19 16l.8 1.7l1.7.8l-1.7.8L19 21l-.8-1.7l-1.7-.8l1.7-.8L19 16z",
+	users:
+		"M9 11a4 4 0 1 0 0-8a4 4 0 0 0 0 8z M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2 M16 3.1a4 4 0 0 1 0 7.8 M21 21v-2a4 4 0 0 0-3-3.85",
+	shirt: "M8 4l4 2l4-2l5 4l-3 4v8H6v-8L3 8l5-4z M10 5.2a2 2 0 0 0 4 0",
+	drop: "M12 3C8 8 6 11 6 14a6 6 0 0 0 12 0c0-3-2-6-6-11z M9 15a3 3 0 0 0 3 3",
+	filter: "M4 5h16l-6 7v5l-4 2v-7L4 5z M8 5v-2h8v2",
+	sensor:
+		"M12 12m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0 M6.35 6.35a8 8 0 0 0 0 11.3 M17.65 6.35a8 8 0 0 1 0 11.3 M3.5 3.5a12 12 0 0 0 0 17 M20.5 3.5a12 12 0 0 1 0 17",
+	phone:
+		"M9 3h6a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z M11 18h2",
+	qr: "M4 4h6v6H4z M14 4h6v6h-6z M4 14h6v6H4z M14 14h2v2h-2z M18 14h2v4h-2z M14 18h4v2h-4z",
+	gift: "M4 11h16v9H4z M4 11V8h16v3 M12 8v12 M9 8a2.5 2.5 0 1 1 3-3c0 1.7 0 3-3 3z M15 8c-3 0-3-1.3-3-3a2.5 2.5 0 1 1 3 3z",
+	map: "M9 18l-6 3V6l6-3l6 3l6-3v15l-6 3l-6-3z M9 3v15 M15 6v15 M17 10m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0",
+	chart: "M4 19h16 M7 16v-5 M12 16V8 M17 16v-9 M6 10l4-4l4 3l4-5 M18 4v5h-5",
+	history: "M12 8v5l3 2 M5.6 7.1A8 8 0 1 1 4 12 M4 5v4h4",
+	material:
+		"M7 6c3-2 7-2 10 0 M7 10c3-2 7-2 10 0 M7 14c3-2 7-2 10 0 M6 18c4-2 8-2 12 0 M5 7m-1 0a1 1 0 1 0 2 0a1 1 0 1 0-2 0 M19 17m-1 0a1 1 0 1 0 2 0a1 1 0 1 0-2 0",
+	building:
+		"M4 21h16 M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16 M9 8h1 M14 8h1 M9 12h1 M14 12h1 M9 16h1 M14 16h1",
+	shield: "M12 3l7 3v5c0 5-3 8-7 10c-4-2-7-5-7-10V6l7-3z M9 12l2 2l4-5",
+	web: "M4 5h16v14H4z M4 9h16 M8 5v4 M8 13h4 M8 16h8 M15 13h1",
+	file: "M14 3v5h5 M6 3h8l5 5v13H6z M9 13h6 M9 17h6",
+};
+
+function renderIcon(name: PresentationIcon) {
+	return `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="${iconPaths[name]}" /></svg>`;
+}
+
+function visualClass(visual?: PresentationVisual) {
+	return visual ? `visual-${visual.type}` : "visual-none";
+}
+
+const scaleDots = Array.from({ length: 20 }, (_, index) => {
+	const angle = (index / 20) * Math.PI * 2;
+	return {
+		left: `${50 + Math.cos(angle) * 32}%`,
+		top: `${50 + Math.sin(angle) * 24}%`,
+		delay: `${index * -110}ms`,
+	};
+});
+---
+
+<section
+	class="deck-shell"
+	data-deck
+	data-initial-slide={safeInitialSlide}
+	data-total-slides={presentationSlides.length}
+>
+	<div class="deck-frame" aria-live="polite">
+		{
+			presentationSlides.map((slide, index) => (
+				<article
+					class:list={[
+						"deck-slide",
+						`variant-${slide.variant}`,
+						`tone-${slide.tone ?? "blue"}`,
+						`animation-${slide.animation}`,
+						visualClass(slide.visual),
+						{ "is-active": index + 1 === safeInitialSlide },
+					]}
+					data-slide={index + 1}
+					aria-hidden={index + 1 === safeInitialSlide ? "false" : "true"}
+				>
+					<div class="slide-noise" aria-hidden="true" />
+					<header class="slide-header deck-fragment">
+						<div>
+							<p class="slide-eyebrow">{slide.eyebrow}</p>
+							<h1>{slide.title}</h1>
+						</div>
+						<img src="/fiberloop-logo.png" alt="FiberLoop" class="slide-logo" />
+					</header>
+
+					<div class="slide-body">
+						<section class="slide-copy">
+							{slide.lead && (
+								<p class="slide-lead deck-fragment">{slide.lead}</p>
+							)}
+
+							{slide.stat && (
+								<div class="slide-stat deck-fragment">
+									<strong>{slide.stat.value}</strong>
+									<span>{slide.stat.label}</span>
+								</div>
+							)}
+
+							{slide.links && (
+								<div class="slide-links deck-fragment">
+									{slide.links.map((link) => (
+										<a
+											href={link.href}
+											target={link.external ? "_blank" : undefined}
+											rel={link.external ? "noreferrer" : undefined}
+										>
+											{link.label}
+											<span aria-hidden="true">↗</span>
+										</a>
+									))}
+								</div>
+							)}
+						</section>
+
+						{slide.visual && (
+							<aside class="slide-visual deck-fragment">
+								{slide.visual.type === "photo" && (
+									<figure class="photo-panel">
+										<img
+											src={slide.visual.src}
+											alt={slide.visual.alt}
+											loading="lazy"
+										/>
+										{slide.visual.caption && (
+											<figcaption>{slide.visual.caption}</figcaption>
+										)}
+									</figure>
+								)}
+
+								{slide.visual.type === "device" && (
+									<div
+										class="device-visual"
+										aria-label="Diagrama de lavarropas conectado a un cartucho filtrante"
+									>
+										<div class="washer" />
+										<div class="hose" />
+										<div class="cartridge" />
+										<div class="pulse" />
+									</div>
+								)}
+
+								{slide.visual.type === "flow" && (
+									<div
+										class="flow-visual"
+										aria-label="Flujo de filtrado, sensores, app y recolección"
+									>
+										{(
+											["filter", "sensor", "phone", "qr"] as PresentationIcon[]
+										).map((icon) => (
+											<span class="flow-node" set:html={renderIcon(icon)} />
+										))}
+									</div>
+								)}
+
+								{slide.visual.type === "phone" && (
+									<div
+										class="phone-visual"
+										aria-label="Mock visual de la app FiberLoop"
+									>
+										<div class="phone-shell">
+											<div class="phone-bar" />
+											<div class="phone-card">
+												<div class="phone-progress" />
+											</div>
+											<div class="phone-row" />
+											<div class="phone-row" />
+										</div>
+									</div>
+								)}
+
+								{slide.visual.type === "scale" && (
+									<div
+										class="scale-visual"
+										aria-label="Acumulación de microfibras por ciclos repetidos"
+									>
+										<div class="scale-orbits">
+											<span />
+											<span />
+											<span />
+										</div>
+										<div class="scale-core">
+											<strong>microfibras</strong>
+											<span>acumuladas</span>
+										</div>
+										<div class="scale-source source-home">hogares</div>
+										<div class="scale-source source-laundry">lavaderos</div>
+										<div class="scale-source source-institution">
+											instituciones
+										</div>
+										<div class="scale-thread thread-a" />
+										<div class="scale-thread thread-b" />
+										<div class="scale-thread thread-c" />
+										<div class="scale-dots" aria-hidden="true">
+											{scaleDots.map((dot) => (
+												<span
+													style={`--dot-left: ${dot.left}; --dot-top: ${dot.top}; --dot-delay: ${dot.delay};`}
+												/>
+											))}
+										</div>
+									</div>
+								)}
+
+								{slide.visual.type === "impact" && (
+									<div
+										class="impact-visual"
+										aria-label="Indicador de impacto de la prueba"
+									>
+										<div class="impact-meter" />
+										<div class="impact-bars">
+											<span />
+											<span />
+											<span />
+										</div>
+									</div>
+								)}
+
+								{slide.visual.type === "risk" && (
+									<div
+										class="risk-visual"
+										aria-label="Anillo de mitigación de riesgos"
+									>
+										<div class="risk-ring" />
+									</div>
+								)}
+
+								{slide.visual.type === "demo" && (
+									<div
+										class="demo-visual"
+										aria-label="Previsualización de la app móvil y la web FiberLoop"
+									>
+										<div class="demo-browser demo-web">
+											<div class="demo-chrome">
+												<span />
+												<span />
+												<span />
+											</div>
+											<iframe
+												src="/web"
+												title="Previsualización de la web FiberLoop"
+												loading="lazy"
+												tabindex="-1"
+											/>
+										</div>
+										<div class="demo-browser demo-app">
+											<div class="demo-chrome">
+												<span />
+												<span />
+												<span />
+											</div>
+											<iframe
+												src="/mobile"
+												title="Previsualización de la app móvil FiberLoop"
+												loading="lazy"
+												tabindex="-1"
+											/>
+										</div>
+									</div>
+								)}
+
+								{slide.visual.type === "thanks" && (
+									<div class="thanks-visual" aria-label="Cierre FiberLoop">
+										<div class="thanks-ring">
+											<img src="/fiberloop-logo.png" alt="" />
+										</div>
+									</div>
+								)}
+							</aside>
+						)}
+
+						{slide.cards && (
+							<div
+								class:list={["slide-card-grid", `count-${slide.cards.length}`]}
+							>
+								{slide.cards.map((card) => (
+									<div class="slide-card deck-fragment">
+										<span class="card-icon" set:html={renderIcon(card.icon)} />
+										<div>
+											<h2>{card.title}</h2>
+											<p>{card.description}</p>
+										</div>
+									</div>
+								))}
+							</div>
+						)}
+					</div>
+
+					<footer class="slide-footer">
+						<span>{String(index + 1).padStart(2, "0")}</span>
+						<span>{String(presentationSlides.length).padStart(2, "0")}</span>
+					</footer>
+				</article>
+			))
+		}
+
+		<nav class="deck-controls" aria-label="Controles de presentación">
+			<button
+				type="button"
+				class="deck-button"
+				data-prev
+				aria-label="Diapositiva anterior">Anterior</button
+			>
+			<span class="deck-counter" data-counter
+				>{safeInitialSlide} / {presentationSlides.length}</span
+			>
+			<button
+				type="button"
+				class="deck-button"
+				data-next
+				aria-label="Diapositiva siguiente">Siguiente</button
+			>
+		</nav>
+	</div>
+</section>
+
+<script is:inline>
+	const deck = document.querySelector("[data-deck]");
+	if (deck) {
+		const slides = Array.from(deck.querySelectorAll("[data-slide]"));
+		const counter = deck.querySelector("[data-counter]");
+		const previousButton = deck.querySelector("[data-prev]");
+		const nextButton = deck.querySelector("[data-next]");
+		const totalSlides = Number(deck.dataset.totalSlides || slides.length);
+		let currentSlide = Number(deck.dataset.initialSlide || 1);
+		let touchStartX = 0;
+
+		function slideFromPath() {
+			const match = window.location.pathname.match(/\/presentacion\/(\d+)\/?$/);
+			if (!match) return currentSlide;
+			const next = Number(match[1]);
+			return Number.isFinite(next)
+				? Math.min(Math.max(next, 1), totalSlides)
+				: currentSlide;
+		}
+
+		function setSlide(nextSlide, options = {}) {
+			const clampedSlide = Math.min(Math.max(nextSlide, 1), totalSlides);
+			const direction = clampedSlide >= currentSlide ? "next" : "prev";
+			currentSlide = clampedSlide;
+			deck.dataset.direction = direction;
+
+			for (const slide of slides) {
+				const isActive = Number(slide.dataset.slide) === currentSlide;
+				slide.classList.toggle("is-active", isActive);
+				slide.setAttribute("aria-hidden", isActive ? "false" : "true");
+
+				const fragments = Array.from(slide.querySelectorAll(".deck-fragment"));
+				fragments.forEach((fragment, index) => {
+					fragment.style.setProperty("--fragment-delay", `${index * 140}ms`);
+					fragment.classList.toggle("is-visible", isActive);
+				});
+			}
+
+			if (counter) counter.textContent = `${currentSlide} / ${totalSlides}`;
+			previousButton?.toggleAttribute("disabled", currentSlide === 1);
+			nextButton?.toggleAttribute("disabled", currentSlide === totalSlides);
+
+			const targetPath =
+				currentSlide === 1
+					? "/presentacion/1"
+					: `/presentacion/${currentSlide}`;
+			if (!options.skipHistory && window.location.pathname !== targetPath) {
+				window.history.pushState({ slide: currentSlide }, "", targetPath);
+			}
+		}
+
+		function nextSlide() {
+			setSlide(currentSlide + 1);
+		}
+
+		function previousSlide() {
+			setSlide(currentSlide - 1);
+		}
+
+		previousButton?.addEventListener("click", previousSlide);
+		nextButton?.addEventListener("click", nextSlide);
+
+		window.addEventListener("keydown", (event) => {
+			if (["ArrowRight", " ", "PageDown"].includes(event.key)) {
+				event.preventDefault();
+				nextSlide();
+			}
+			if (["ArrowLeft", "PageUp"].includes(event.key)) {
+				event.preventDefault();
+				previousSlide();
+			}
+			if (event.key === "Home") setSlide(1);
+			if (event.key === "End") setSlide(totalSlides);
+		});
+
+		window.addEventListener("popstate", () => {
+			setSlide(slideFromPath(), { skipHistory: true });
+		});
+
+		deck.addEventListener("touchstart", (event) => {
+			touchStartX = event.changedTouches[0]?.clientX || 0;
+		});
+
+		deck.addEventListener("touchend", (event) => {
+			const touchEndX = event.changedTouches[0]?.clientX || 0;
+			const delta = touchEndX - touchStartX;
+			if (Math.abs(delta) < 50) return;
+			if (delta < 0) nextSlide();
+			else previousSlide();
+		});
+
+		setSlide(slideFromPath(), { skipHistory: true });
+	}
+</script>
+
+<style>
+	.deck-shell {
+		--deck-primary: #168ff2;
+		--deck-accent: #f68b1f;
+		--deck-mint: #3ddc97;
+		--deck-ink: #111827;
+		--deck-muted: #536171;
+		width: 100vw;
+		height: 100dvh;
+		overflow: hidden;
+		display: grid;
+		place-items: center;
+		background:
+			radial-gradient(
+				circle at 16% 14%,
+				rgb(87 200 255 / 18%),
+				transparent 28rem
+			),
+			linear-gradient(135deg, #f6fbff 0%, #eef7ff 48%, #fff8ef 100%);
+		color: var(--deck-ink);
+	}
+
+	.deck-frame {
+		position: relative;
+		width: min(100vw, 177.777dvh);
+		height: min(100dvh, 56.25vw);
+		aspect-ratio: 16 / 9;
+		overflow: hidden;
+		background: #fff;
+		box-shadow: 0 1.3rem 4rem rgb(15 23 42 / 16%);
+	}
+
+	.deck-slide {
+		position: absolute;
+		inset: 0;
+		display: grid;
+		grid-template-rows: auto 1fr auto;
+		gap: clamp(0.6rem, 1.2vw, 1.1rem);
+		padding: clamp(1.25rem, 3.2vw, 3.8rem) clamp(1.5rem, 4vw, 4.8rem)
+			clamp(1rem, 2.2vw, 2.6rem);
+		background:
+			linear-gradient(
+				90deg,
+				var(--tone-primary) 0 0.72rem,
+				transparent 0.72rem
+			),
+			linear-gradient(135deg, rgb(255 255 255 / 98%) 0%, var(--tone-soft) 100%);
+		opacity: 0;
+		pointer-events: none;
+		transition:
+			opacity 950ms cubic-bezier(0.22, 1, 0.36, 1),
+			transform 1050ms cubic-bezier(0.22, 1, 0.36, 1);
+	}
+
+	.tone-blue {
+		--tone-primary: var(--deck-primary);
+		--tone-secondary: #0872d8;
+		--tone-soft: #f3fbff;
+		--tone-glow: rgb(22 143 242 / 16%);
+	}
+
+	.tone-orange {
+		--tone-primary: var(--deck-accent);
+		--tone-secondary: #d56a00;
+		--tone-soft: #fff8ef;
+		--tone-glow: rgb(246 139 31 / 18%);
+	}
+
+	.tone-mint {
+		--tone-primary: var(--deck-mint);
+		--tone-secondary: #079669;
+		--tone-soft: #effdf7;
+		--tone-glow: rgb(61 220 151 / 18%);
+	}
+
+	.tone-dark {
+		--tone-primary: #0b2030;
+		--tone-secondary: #168ff2;
+		--tone-soft: #f4f8fb;
+		--tone-glow: rgb(11 32 48 / 16%);
+	}
+
+	.animation-rise {
+		transform: translateY(3rem) scale(0.985);
+	}
+
+	.animation-slide-left {
+		transform: translateX(5rem) rotate(0.8deg);
+	}
+
+	.deck-shell[data-direction="prev"] .animation-slide-left {
+		transform: translateX(-5rem) rotate(-0.8deg);
+	}
+
+	.animation-zoom-soft {
+		transform: scale(0.94);
+	}
+
+	.animation-wipe {
+		transform: translateY(1.8rem) scale(0.985);
+	}
+
+	.animation-cascade {
+		transform: translateY(2.4rem) scale(0.98);
+	}
+
+	.deck-slide.is-active {
+		opacity: 1;
+		pointer-events: auto;
+		transform: translate(0) scale(1) rotate(0);
+	}
+
+	.slide-noise {
+		position: absolute;
+		inset: 0;
+		pointer-events: none;
+		background:
+			radial-gradient(circle at 74% 22%, var(--tone-glow), transparent 16rem),
+			radial-gradient(
+				circle at 12% 88%,
+				rgb(246 139 31 / 10%),
+				transparent 16rem
+			),
+			repeating-linear-gradient(
+				115deg,
+				rgb(15 23 42 / 2%) 0 1px,
+				transparent 1px 9px
+			);
+		mask-image: linear-gradient(180deg, #000 0%, transparent 84%);
+	}
+
+	.slide-header,
+	.slide-body,
+	.slide-footer {
+		position: relative;
+		z-index: 1;
+	}
+
+	.slide-header {
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-between;
+		gap: clamp(1rem, 3vw, 3rem);
+	}
+
+	.slide-eyebrow {
+		margin: 0 0 0.45rem;
+		font-size: clamp(0.62rem, 1.04vw, 1.04rem);
+		font-weight: 900;
+		letter-spacing: 0.27em;
+		text-transform: uppercase;
+		color: var(--tone-secondary);
+	}
+
+	.slide-logo {
+		width: clamp(6.4rem, 14vw, 15rem);
+		flex: none;
+		filter: drop-shadow(0 0.6rem 1rem rgb(8 114 216 / 10%));
+	}
+
+	.deck-slide h1 {
+		max-width: 15ch;
+		margin: -0.05em 0;
+		padding-block: 0.08em 0.12em;
+		font-size: clamp(1.9rem, 4.5vw, 5.08rem);
+		font-weight: 950;
+		line-height: 1.02;
+		letter-spacing: -0.065em;
+		color: #111827;
+	}
+
+	.variant-cover h1,
+	.variant-thanks h1 {
+		max-width: 12ch;
+		font-size: clamp(2.3rem, 5.48vw, 6.3rem);
+	}
+
+	.variant-split h1,
+	.variant-links h1 {
+		max-width: 13ch;
+		font-size: clamp(1.84rem, 4.24vw, 4.68rem);
+	}
+
+	.slide-body {
+		display: grid;
+		grid-template-columns: minmax(0, 0.9fr) minmax(15rem, 0.85fr);
+		grid-template-areas:
+			"copy visual"
+			"cards visual";
+		align-items: center;
+		gap: clamp(0.85rem, 1.8vw, 1.8rem) clamp(1rem, 2.8vw, 3rem);
+		min-height: 0;
+	}
+
+	.variant-cards .slide-body {
+		grid-template-columns: 1fr;
+		grid-template-areas:
+			"copy"
+			"visual"
+			"cards";
+		align-content: center;
+	}
+
+	.variant-metric .slide-body,
+	.variant-cover .slide-body,
+	.variant-thanks .slide-body {
+		grid-template-columns: minmax(0, 1fr) minmax(16rem, 0.78fr);
+		grid-template-areas:
+			"copy visual"
+			"cards visual";
+	}
+
+	.slide-copy {
+		grid-area: copy;
+		display: grid;
+		gap: clamp(0.7rem, 1.4vw, 1.3rem);
+		align-content: start;
+	}
+
+	.slide-lead {
+		max-width: 44ch;
+		margin: 0;
+		font-size: clamp(0.96rem, 1.7vw, 1.72rem);
+		line-height: 1.26;
+		color: #38485a;
+	}
+
+	.slide-stat {
+		display: grid;
+		width: min(100%, 39rem);
+		gap: 0.35rem;
+		padding: clamp(0.85rem, 1.7vw, 1.8rem);
+		border: 1px solid color-mix(in srgb, var(--tone-primary), white 62%);
+		border-radius: 1.35rem;
+		background: rgb(255 255 255 / 72%);
+		box-shadow: 0 1rem 2.8rem var(--tone-glow);
+		backdrop-filter: blur(12px);
+	}
+
+	.slide-stat strong {
+		padding-block: 0.05em 0.08em;
+		font-size: clamp(1.58rem, 3.9vw, 4.68rem);
+		line-height: 1.02;
+		letter-spacing: -0.06em;
+		color: var(--tone-secondary);
+	}
+
+	.slide-stat span {
+		font-size: clamp(0.84rem, 1.2vw, 1.26rem);
+		font-weight: 800;
+		line-height: 1.3;
+		color: #3c4d61;
+	}
+
+	.slide-visual {
+		grid-area: visual;
+		align-self: stretch;
+		display: grid;
+		place-items: center;
+		min-height: 0;
+	}
+
+	.variant-cards .slide-visual {
+		align-self: center;
+		min-height: clamp(6rem, 13vw, 10rem);
+	}
+
+	.slide-card-grid {
+		grid-area: cards;
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: clamp(0.55rem, 1.05vw, 1rem);
+		align-self: end;
+	}
+
+	.slide-card-grid.count-3,
+	.variant-cards .slide-card-grid.count-3 {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+
+	.variant-cards .slide-card-grid.count-6 {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+
+	.slide-card {
+		display: flex;
+		gap: clamp(0.55rem, 0.95vw, 0.9rem);
+		min-height: clamp(4.6rem, 7.4vw, 7.8rem);
+		padding: clamp(0.65rem, 1.1vw, 1.05rem);
+		border: 1px solid color-mix(in srgb, var(--tone-primary), white 70%);
+		border-radius: 1rem;
+		background: rgb(255 255 255 / 78%);
+		box-shadow: 0 0.85rem 2rem rgb(15 23 42 / 7%);
+		backdrop-filter: blur(12px);
+	}
+
+	.card-icon {
+		width: clamp(1.75rem, 2.9vw, 2.6rem);
+		height: clamp(1.75rem, 2.9vw, 2.6rem);
+		flex: none;
+		display: grid;
+		place-items: center;
+		border-radius: 0.85rem;
+		background: color-mix(in srgb, var(--tone-primary), white 82%);
+		color: var(--tone-secondary);
+	}
+
+	.card-icon svg {
+		width: 62%;
+		height: 62%;
+		fill: none;
+		stroke: currentColor;
+		stroke-width: 1.8;
+		stroke-linecap: round;
+		stroke-linejoin: round;
+	}
+
+	.slide-card h2 {
+		margin: 0 0 0.18rem;
+		font-size: clamp(0.9rem, 1.48vw, 1.48rem);
+		line-height: 1.14;
+		letter-spacing: -0.035em;
+		color: var(--tone-secondary);
+	}
+
+	.slide-card p {
+		margin: 0;
+		font-size: clamp(0.75rem, 1.05vw, 1.08rem);
+		line-height: 1.26;
+		color: #536171;
+	}
+
+	.slide-links {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75rem;
+	}
+
+	.slide-links a {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.55rem;
+		border-radius: 999px;
+		background: #111827;
+		padding: clamp(0.65rem, 1.1vw, 0.95rem) clamp(0.95rem, 1.7vw, 1.55rem);
+		font-size: clamp(0.84rem, 1.1vw, 1.1rem);
+		font-weight: 900;
+		color: #fff;
+		text-decoration: none;
+		box-shadow: 0 1rem 2.2rem rgb(15 23 42 / 18%);
+		transition:
+			transform 260ms ease,
+			box-shadow 260ms ease;
+	}
+
+	.slide-links a:hover {
+		transform: translateY(-0.12rem);
+		box-shadow: 0 1.3rem 2.8rem rgb(15 23 42 / 24%);
+	}
+
+	.photo-panel {
+		position: relative;
+		width: min(100%, 33rem);
+		height: min(100%, 21rem);
+		margin: 0;
+		overflow: hidden;
+		border: 0.55rem solid #fff;
+		border-radius: 1.6rem;
+		box-shadow: 0 1.4rem 3.4rem rgb(15 23 42 / 18%);
+		transform: rotate(1.5deg);
+	}
+
+	.photo-panel::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+		background:
+			linear-gradient(
+				140deg,
+				transparent 0 42%,
+				rgb(255 255 255 / 18%) 50%,
+				transparent 58%
+			),
+			radial-gradient(
+				circle at 65% 20%,
+				rgb(87 200 255 / 25%),
+				transparent 10rem
+			);
+	}
+
+	.photo-panel img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		filter: saturate(0.95) contrast(1.05);
+	}
+
+	.photo-panel figcaption {
+		position: absolute;
+		left: 0.8rem;
+		bottom: 0.75rem;
+		z-index: 2;
+		border-radius: 999px;
+		background: rgb(6 19 31 / 70%);
+		padding: 0.32rem 0.6rem;
+		font-size: clamp(0.56rem, 0.74vw, 0.72rem);
+		font-weight: 700;
+		color: #fff;
+	}
+
+	.device-visual,
+	.flow-visual,
+	.phone-visual,
+	.scale-visual,
+	.impact-visual,
+	.risk-visual,
+	.demo-visual,
+	.thanks-visual {
+		position: relative;
+		width: min(100%, 31rem);
+		height: min(100%, 22rem);
+		min-height: 10rem;
+	}
+
+	.device-visual .washer {
+		position: absolute;
+		left: 0;
+		top: 1.4rem;
+		width: 44%;
+		aspect-ratio: 1;
+		border: 0.45rem solid #dff0fb;
+		border-radius: 1.4rem;
+		background: linear-gradient(145deg, #fff, #eaf7ff);
+		box-shadow: 0 1.2rem 3rem rgb(15 23 42 / 12%);
+	}
+
+	.device-visual .washer::before {
+		content: "";
+		position: absolute;
+		inset: 22%;
+		border: 0.4rem solid var(--tone-primary);
+		border-radius: 50%;
+		background: radial-gradient(
+			circle at 44% 42%,
+			#fff 0 20%,
+			#9ee3ff 21% 46%,
+			#168ff2 47% 48%,
+			transparent 49%
+		);
+		animation: slow-spin 11s linear infinite;
+	}
+
+	.device-visual .hose {
+		position: absolute;
+		left: 36%;
+		top: 43%;
+		width: 34%;
+		height: 18%;
+		border-top: 0.55rem solid var(--tone-primary);
+		border-right: 0.55rem solid var(--tone-primary);
+		border-radius: 0 2rem 0 0;
+	}
+
+	.device-visual .cartridge {
+		position: absolute;
+		right: 2%;
+		top: 26%;
+		width: 32%;
+		height: 48%;
+		border: 0.42rem solid var(--tone-secondary);
+		border-radius: 999px;
+		background:
+			repeating-linear-gradient(
+				90deg,
+				rgb(22 143 242 / 18%) 0 0.24rem,
+				transparent 0.24rem 0.62rem
+			),
+			linear-gradient(
+				180deg,
+				#fff,
+				color-mix(in srgb, var(--tone-primary), white 82%)
+			);
+		box-shadow: 0 1.1rem 2.8rem var(--tone-glow);
+	}
+
+	.device-visual .pulse,
+	.device-visual .pulse::before,
+	.device-visual .pulse::after {
+		position: absolute;
+		right: 15%;
+		top: 21%;
+		width: 1.1rem;
+		height: 1.1rem;
+		border-radius: 50%;
+		background: var(--deck-mint);
+		box-shadow: 0 0 0 0 rgb(61 220 151 / 45%);
+		animation: pulse-ring 2.4s ease-out infinite;
+		content: "";
+	}
+
+	.flow-visual {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		align-items: center;
+		gap: 0.55rem;
+	}
+
+	.flow-node {
+		position: relative;
+		display: grid;
+		place-items: center;
+		aspect-ratio: 1;
+		border-radius: 50%;
+		background: #fff;
+		box-shadow: 0 1rem 2.4rem rgb(15 23 42 / 10%);
+		color: var(--tone-secondary);
+	}
+
+	.flow-node:not(:last-child)::after {
+		content: "";
+		position: absolute;
+		left: 92%;
+		top: 50%;
+		width: 1.4rem;
+		height: 0.22rem;
+		border-radius: 999px;
+		background: var(--tone-primary);
+		animation: flow-line 2.6s ease-in-out infinite;
+	}
+
+	.flow-node svg {
+		width: 46%;
+		height: 46%;
+		fill: none;
+		stroke: currentColor;
+		stroke-width: 1.8;
+		stroke-linecap: round;
+		stroke-linejoin: round;
+	}
+
+	.phone-visual {
+		display: grid;
+		place-items: center;
+	}
+
+	.scale-visual {
+		display: grid;
+		place-items: center;
+		isolation: isolate;
+	}
+
+	.scale-visual::before {
+		content: "";
+		position: absolute;
+		inset: 8% 2% 0;
+		z-index: -2;
+		border-radius: 2.4rem;
+		background:
+			radial-gradient(
+				circle at 52% 48%,
+				rgb(119 211 56 / 28%),
+				transparent 8rem
+			),
+			linear-gradient(135deg, rgb(255 255 255 / 74%), rgb(237 251 225 / 58%));
+		box-shadow: 0 1.4rem 3.5rem rgb(91 151 22 / 13%);
+	}
+
+	.scale-orbits,
+	.scale-orbits span,
+	.scale-core,
+	.scale-source,
+	.scale-thread,
+	.scale-dots span {
+		position: absolute;
+	}
+
+	.scale-orbits {
+		inset: 12% 10%;
+		z-index: -1;
+	}
+
+	.scale-orbits span {
+		inset: calc(var(--orbit, 0) * 1.25rem);
+		border: 1px solid rgb(99 160 32 / 20%);
+		border-radius: 50%;
+		transform: rotate(calc(var(--orbit, 0) * 18deg));
+		animation: slow-spin 18s linear infinite;
+	}
+
+	.scale-orbits span:nth-child(1) {
+		--orbit: 0;
+	}
+
+	.scale-orbits span:nth-child(2) {
+		--orbit: 1;
+		animation-duration: 24s;
+		animation-direction: reverse;
+	}
+
+	.scale-orbits span:nth-child(3) {
+		--orbit: 2;
+		animation-duration: 30s;
+	}
+
+	.scale-core {
+		left: 50%;
+		top: 50%;
+		display: grid;
+		width: clamp(8.6rem, 15vw, 14rem);
+		aspect-ratio: 1;
+		place-content: center;
+		gap: 0.12rem;
+		border: 0.35rem solid #fff;
+		border-radius: 50%;
+		background:
+			repeating-radial-gradient(
+				circle,
+				rgb(99 160 32 / 22%) 0 0.08rem,
+				transparent 0.08rem 0.46rem
+			),
+			linear-gradient(145deg, #f9fff4, #dff8c9);
+		box-shadow:
+			inset 0 0 0 1px rgb(99 160 32 / 16%),
+			0 1.4rem 3rem rgb(91 151 22 / 20%);
+		text-align: center;
+		transform: translate(-50%, -50%);
+	}
+
+	.scale-core strong {
+		font-size: clamp(1.02rem, 1.7vw, 1.6rem);
+		line-height: 1;
+		letter-spacing: -0.06em;
+		color: #4d8111;
+	}
+
+	.scale-core span {
+		font-size: clamp(0.66rem, 0.95vw, 0.92rem);
+		font-weight: 900;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		color: #718364;
+	}
+
+	.scale-source {
+		z-index: 2;
+		border: 1px solid rgb(99 160 32 / 18%);
+		border-radius: 999px;
+		background: rgb(255 255 255 / 82%);
+		padding: clamp(0.42rem, 0.8vw, 0.7rem) clamp(0.72rem, 1.2vw, 1.05rem);
+		box-shadow: 0 0.8rem 1.8rem rgb(91 151 22 / 12%);
+		font-size: clamp(0.64rem, 1vw, 0.98rem);
+		font-weight: 950;
+		color: #5f9f1e;
+	}
+
+	.source-home {
+		left: 5%;
+		top: 22%;
+	}
+
+	.source-laundry {
+		right: 3%;
+		top: 19%;
+	}
+
+	.source-institution {
+		right: 11%;
+		bottom: 17%;
+	}
+
+	.scale-thread {
+		z-index: 1;
+		height: 0.22rem;
+		border-radius: 999px;
+		background: linear-gradient(
+			90deg,
+			transparent,
+			rgb(119 211 56 / 80%),
+			transparent
+		);
+		filter: drop-shadow(0 0 0.55rem rgb(119 211 56 / 38%));
+		transform-origin: left center;
+		animation: thread-a-flow 3.8s ease-in-out infinite;
+	}
+
+	.thread-a {
+		left: 22%;
+		top: 34%;
+		width: 29%;
+		transform: rotate(13deg);
+	}
+
+	.thread-b {
+		right: 21%;
+		top: 34%;
+		width: 26%;
+		transform: rotate(163deg);
+		animation-name: thread-b-flow;
+		animation-delay: 380ms;
+	}
+
+	.thread-c {
+		right: 24%;
+		bottom: 32%;
+		width: 23%;
+		transform: rotate(212deg);
+		animation-name: thread-c-flow;
+		animation-delay: 760ms;
+	}
+
+	.scale-dots {
+		position: absolute;
+		inset: 0;
+	}
+
+	.scale-dots span {
+		left: var(--dot-left);
+		top: var(--dot-top);
+		width: clamp(0.22rem, 0.45vw, 0.44rem);
+		aspect-ratio: 1;
+		border-radius: 50%;
+		background: color-mix(in srgb, var(--tone-secondary), white 16%);
+		opacity: 0.62;
+		animation: float 3.8s ease-in-out infinite;
+		animation-delay: var(--dot-delay);
+	}
+
+	.phone-shell {
+		width: min(62%, 12.5rem);
+		aspect-ratio: 9 / 18;
+		border: 0.55rem solid #111827;
+		border-radius: 2rem;
+		background: linear-gradient(180deg, #f9fdff, #eaf7ff);
+		padding: 0.85rem;
+		box-shadow: 0 1.3rem 3.4rem rgb(15 23 42 / 22%);
+	}
+
+	.phone-bar,
+	.phone-card,
+	.phone-progress,
+	.phone-row {
+		border-radius: 0.8rem;
+		background: #fff;
+	}
+
+	.phone-bar {
+		height: 1.7rem;
+		margin-bottom: 0.7rem;
+		background: var(--tone-primary);
+	}
+
+	.phone-card {
+		height: 5rem;
+		padding: 0.55rem;
+		box-shadow: inset 0 0 0 1px #d9ecf8;
+	}
+
+	.phone-progress {
+		height: 0.7rem;
+		margin-top: 2.8rem;
+		background: linear-gradient(90deg, var(--deck-mint) 0 68%, #d9ecf8 68%);
+	}
+
+	.phone-row {
+		height: 2rem;
+		margin-top: 0.7rem;
+		box-shadow: inset 0 0 0 1px #d9ecf8;
+	}
+
+	.impact-visual {
+		display: grid;
+		align-content: center;
+		gap: 0.8rem;
+	}
+
+	.impact-meter {
+		position: relative;
+		aspect-ratio: 1;
+		width: min(72%, 16rem);
+		place-self: center;
+		border-radius: 50%;
+		background: conic-gradient(var(--deck-mint) 0 25%, #d9ecf8 25% 100%);
+		box-shadow: 0 1.4rem 3rem rgb(61 220 151 / 20%);
+	}
+
+	.impact-meter::after {
+		content: "25%";
+		position: absolute;
+		inset: 17%;
+		display: grid;
+		place-items: center;
+		border-radius: 50%;
+		background: #fff;
+		font-size: clamp(1.98rem, 4.28vw, 4.3rem);
+		font-weight: 950;
+		letter-spacing: -0.06em;
+		color: #079669;
+	}
+
+	.impact-bars {
+		display: grid;
+		gap: 0.45rem;
+	}
+
+	.impact-bars span {
+		display: block;
+		height: 0.55rem;
+		border-radius: 999px;
+		background: linear-gradient(90deg, var(--tone-primary), transparent);
+		animation: bar-grow 3.2s ease-in-out infinite alternate;
+	}
+
+	.risk-visual,
+	.demo-visual,
+	.thanks-visual {
+		display: grid;
+		place-items: center;
+	}
+
+	.demo-visual {
+		isolation: isolate;
+	}
+
+	.demo-visual::before {
+		content: "";
+		position: absolute;
+		inset: 8% 2% 2% 8%;
+		z-index: -1;
+		border-radius: 2rem;
+		background:
+			radial-gradient(
+				circle at 30% 28%,
+				rgb(61 220 151 / 26%),
+				transparent 9rem
+			),
+			radial-gradient(
+				circle at 74% 70%,
+				rgb(22 143 242 / 20%),
+				transparent 10rem
+			),
+			linear-gradient(135deg, rgb(255 255 255 / 74%), rgb(232 252 243 / 72%));
+		box-shadow: 0 1.35rem 3.4rem rgb(15 23 42 / 12%);
+	}
+
+	.demo-browser {
+		position: absolute;
+		overflow: hidden;
+		border: 0.28rem solid #fff;
+		border-radius: 1.15rem;
+		background: #fff;
+		box-shadow: 0 1.25rem 3rem rgb(15 23 42 / 17%);
+	}
+
+	.demo-browser iframe {
+		display: block;
+		width: 100%;
+		height: calc(100% - 1.45rem);
+		border: 0;
+		pointer-events: none;
+	}
+
+	.demo-chrome {
+		display: flex;
+		align-items: center;
+		gap: 0.28rem;
+		height: 1.45rem;
+		background: linear-gradient(90deg, #0b2030, #123a52);
+		padding-inline: 0.55rem;
+	}
+
+	.demo-chrome span {
+		width: 0.42rem;
+		aspect-ratio: 1;
+		border-radius: 50%;
+		background: var(--deck-mint);
+		opacity: 0.78;
+	}
+
+	.demo-web {
+		inset: 7% 3% 18% 4%;
+		transform: rotate(-1.4deg);
+	}
+
+	.demo-web iframe {
+		transform: scale(0.44);
+		transform-origin: 0 0;
+		width: 227%;
+		height: 227%;
+	}
+
+	.demo-app {
+		right: 4%;
+		bottom: 4%;
+		width: 31%;
+		height: 68%;
+		border-width: 0.36rem;
+		border-radius: 1.8rem;
+		transform: rotate(4deg);
+	}
+
+	.demo-app iframe {
+		transform: scale(0.36);
+		transform-origin: 0 0;
+		width: 278%;
+		height: 278%;
+	}
+
+	.risk-ring,
+	.thanks-ring {
+		position: relative;
+		width: min(82%, 18rem);
+		aspect-ratio: 1;
+		border-radius: 50%;
+		border: 0.8rem solid color-mix(in srgb, var(--tone-primary), white 72%);
+		box-shadow:
+			inset 0 0 0 1px #fff,
+			0 1.3rem 3rem var(--tone-glow);
+	}
+
+	.risk-ring::before,
+	.thanks-ring::before {
+		content: "";
+		position: absolute;
+		inset: 22%;
+		border-radius: 50%;
+		background: radial-gradient(circle, var(--tone-primary), transparent 64%);
+		opacity: 0.18;
+		animation: float 4s ease-in-out infinite;
+	}
+
+	.thanks-ring img {
+		position: absolute;
+		inset: 27%;
+		width: 46%;
+		height: auto;
+		margin: auto;
+	}
+
+	.slide-footer {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		border-top: 1px solid color-mix(in srgb, var(--tone-primary), white 76%);
+		padding-top: clamp(0.35rem, 0.8vw, 0.75rem);
+		font-size: clamp(0.6rem, 0.9vw, 0.88rem);
+		font-weight: 950;
+		letter-spacing: 0.18em;
+		color: #8b9aab;
+	}
+
+	.deck-fragment {
+		opacity: 0;
+		transform: translateY(1.25rem) scale(0.985);
+		filter: blur(0.18rem);
+		transition:
+			opacity 900ms cubic-bezier(0.22, 1, 0.36, 1),
+			transform 1000ms cubic-bezier(0.22, 1, 0.36, 1),
+			filter 900ms ease;
+		transition-delay: var(--fragment-delay, 0ms);
+	}
+
+	.animation-slide-left .deck-fragment {
+		transform: translateX(2.2rem);
+	}
+
+	.animation-wipe .deck-fragment {
+		transform: translateX(1.8rem) scale(0.99);
+		transition-property: opacity, transform, filter;
+	}
+
+	.deck-fragment.is-visible {
+		opacity: 1;
+		transform: translate(0) scale(1);
+		filter: blur(0);
+	}
+
+	.deck-controls {
+		position: absolute;
+		left: 50%;
+		bottom: clamp(0.5rem, 1vw, 1rem);
+		z-index: 5;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.45rem;
+		transform: translateX(-50%);
+		border: 1px solid rgb(217 236 248 / 72%);
+		border-radius: 999px;
+		background: rgb(255 255 255 / 78%);
+		padding: 0.32rem;
+		box-shadow: 0 0.9rem 2.1rem rgb(15 23 42 / 10%);
+		backdrop-filter: blur(14px);
+	}
+
+	.deck-button {
+		border: 0;
+		border-radius: 999px;
+		background: transparent;
+		padding: 0.42rem 0.78rem;
+		font: inherit;
+		font-size: clamp(0.66rem, 0.9vw, 0.9rem);
+		font-weight: 900;
+		color: #075aae;
+		cursor: pointer;
+	}
+
+	.deck-button:hover:not(:disabled) {
+		background: #eef8ff;
+	}
+
+	.deck-button:disabled {
+		opacity: 0.4;
+		cursor: not-allowed;
+	}
+
+	.deck-counter {
+		min-width: 3.5rem;
+		text-align: center;
+		font-size: clamp(0.66rem, 0.9vw, 0.9rem);
+		font-weight: 950;
+		color: #475569;
+	}
+
+	@keyframes slow-spin {
+		to {
+			transform: rotate(360deg);
+		}
+	}
+
+	@keyframes pulse-ring {
+		70% {
+			box-shadow: 0 0 0 1.2rem rgb(61 220 151 / 0%);
+		}
+	}
+
+	@keyframes flow-line {
+		50% {
+			transform: scaleX(1.5);
+			opacity: 0.55;
+		}
+	}
+
+	@keyframes thread-a-flow {
+		50% {
+			transform: rotate(13deg) scaleX(1.45);
+			opacity: 0.58;
+		}
+	}
+
+	@keyframes thread-b-flow {
+		50% {
+			transform: rotate(163deg) scaleX(1.45);
+			opacity: 0.58;
+		}
+	}
+
+	@keyframes thread-c-flow {
+		50% {
+			transform: rotate(212deg) scaleX(1.45);
+			opacity: 0.58;
+		}
+	}
+
+	@keyframes bar-grow {
+		from {
+			transform: scaleX(0.55);
+			transform-origin: left;
+		}
+		to {
+			transform: scaleX(1);
+			transform-origin: left;
+		}
+	}
+
+	@keyframes float {
+		50% {
+			transform: translateY(-0.8rem) scale(1.05);
+		}
+	}
+
+	@media (max-aspect-ratio: 4 / 3) {
+		.slide-logo {
+			width: clamp(5.5rem, 18vw, 9rem);
+		}
+
+		.deck-slide h1,
+		.variant-cover h1,
+		.variant-thanks h1,
+		.variant-split h1,
+		.variant-links h1 {
+			font-size: clamp(1.65rem, 6.5vw, 3.2rem);
+		}
+
+		.slide-body,
+		.variant-cover .slide-body,
+		.variant-metric .slide-body,
+		.variant-thanks .slide-body {
+			grid-template-columns: 1fr;
+			grid-template-areas:
+				"copy"
+				"visual"
+				"cards";
+		}
+
+		.slide-visual {
+			max-height: 28dvh;
+		}
+
+		.slide-card-grid,
+		.slide-card-grid.count-3,
+		.variant-cards .slide-card-grid.count-3,
+		.variant-cards .slide-card-grid.count-6 {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+	}
+
+	@media (max-width: 760px) {
+		.deck-frame {
+			width: 100vw;
+			height: 100dvh;
+			aspect-ratio: auto;
+		}
+
+		.deck-slide {
+			padding: 1.15rem 1rem 4rem;
+		}
+
+		.slide-logo {
+			display: none;
+		}
+
+		.slide-card-grid,
+		.slide-card-grid.count-3,
+		.variant-cards .slide-card-grid.count-3,
+		.variant-cards .slide-card-grid.count-6 {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.deck-slide,
+		.deck-fragment,
+		.device-visual .washer::before,
+		.device-visual .pulse,
+		.flow-node:not(:last-child)::after,
+		.scale-orbits span,
+		.scale-thread,
+		.scale-dots span,
+		.impact-bars span,
+		.risk-ring::before,
+		.thanks-ring::before {
+			animation: none;
+			transition: none;
+		}
+	}
+</style>
