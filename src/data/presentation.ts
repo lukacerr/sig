@@ -133,12 +133,14 @@ export const presentationSlides: Slide[] = [
 		image: {
 			src: "/img/gis/aerial.jpg",
 			alt: "Vista aérea del campo con un río atravesando el lote.",
-			caption: "El lote no es uniforme: se observan diferencias entre sectores.",
+			caption:
+				"El lote no es uniforme: se observan diferencias entre sectores.",
 		},
 		cards: [
 			{
 				title: "Variabilidad espacial",
-				description: "El lote presenta zonas con distinto comportamiento productivo.",
+				description:
+					"El lote presenta zonas con distinto comportamiento productivo.",
 				icon: "grid",
 			},
 			{
@@ -172,17 +174,20 @@ export const presentationSlides: Slide[] = [
 		cards: [
 			{
 				title: "Manejo uniforme",
-				description: "Tratar todo el lote igual desaprovecha las zonas de mayor potencial.",
+				description:
+					"Tratar todo el lote igual desaprovecha las zonas de mayor potencial.",
 				icon: "ruler",
 			},
 			{
 				title: "Pérdida de eficiencia",
-				description: "Insumos mal distribuidos: de más donde no hace falta y de menos donde sí.",
+				description:
+					"Insumos mal distribuidos: de más donde no hace falta y de menos donde sí.",
 				icon: "alert",
 			},
 			{
 				title: "Identificar ambientes",
-				description: "Reconocer zonas productivas para mejorar la toma de decisiones.",
+				description:
+					"Reconocer zonas productivas para mejorar la toma de decisiones.",
 				icon: "target",
 			},
 		],
@@ -212,7 +217,8 @@ export const presentationSlides: Slide[] = [
 			{
 				title: "Sentinel-2",
 				tag: "Ráster",
-				description: "Imágenes satelitales. Banda Roja (B4) e Infrarrojo Cercano (B8).",
+				description:
+					"Imágenes satelitales. Banda Roja (B4) e Infrarrojo Cercano (B8).",
 				icon: "satellite",
 			},
 			{
@@ -282,7 +288,8 @@ export const presentationSlides: Slide[] = [
 		cards: [
 			{
 				title: "Composición espectral",
-				description: "Las bandas B4 y B8 resaltan la vegetación en falso color.",
+				description:
+					"Las bandas B4 y B8 resaltan la vegetación en falso color.",
 				icon: "satellite",
 			},
 			{
@@ -342,7 +349,7 @@ export const presentationSlides: Slide[] = [
 		image: {
 			src: "/img/gis/ndvi.png",
 			alt: "Mapa de NDVI del lote con escala de color.",
-			caption: "Mapa de NDVI del lote.",
+			caption: "Ejemplo de NDVI visualizado mediante gradiente de colores.",
 		},
 		cards: [
 			{
@@ -382,12 +389,14 @@ export const presentationSlides: Slide[] = [
 		cards: [
 			{
 				title: "Agrupar zonas similares",
-				description: "Los píxeles con NDVI parecido se reúnen en un mismo ambiente.",
+				description:
+					"Los píxeles con NDVI parecido se reúnen en un mismo ambiente.",
 				icon: "layers",
 			},
 			{
 				title: "Cuatro ambientes",
-				description: "El lote queda dividido en cuatro clases de productividad.",
+				description:
+					"El lote queda dividido en cuatro clases de productividad.",
 				icon: "grid",
 			},
 		],
@@ -539,7 +548,8 @@ export const presentationSlides: Slide[] = [
 		cards: [
 			{
 				title: "Variabilidad identificada",
-				description: "El SIG permitió detectar la variabilidad espacial del lote.",
+				description:
+					"El SIG permitió detectar la variabilidad espacial del lote.",
 				icon: "grid",
 			},
 			{
