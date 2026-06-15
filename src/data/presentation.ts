@@ -464,9 +464,9 @@ export const presentationSlides: Slide[] = [
 		variant: "split",
 		tone: "green",
 		image: {
-			src: "/img/gis/zones.png",
-			alt: "Mapa del lote con los ambientes delineados por color.",
-			caption: "Ambientes delineados sobre el lote.",
+			src: "/img/gis/entrega-final-map.png",
+			alt: "Mapa final de Campo Díaz con ambientación y referencias.",
+			caption: "Mapa final extraído de ENTREGA FINAL.pdf.",
 		},
 		cards: [
 			{
